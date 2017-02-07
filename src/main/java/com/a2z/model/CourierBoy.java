@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -83,11 +82,12 @@ public class CourierBoy implements Serializable {
 	@Column(name="roadtax_file_name")
 	private String roadtaxFileName;
 
-	
-	
 	@Column(name="vehicle_name")
 	private String vehicleName;
 
+	@Column(name="vehicle_owner")
+	private String vehicleOwner;
+	
 	@Column(name="vehicle_type")
 	private String vehicleType;
 
@@ -328,6 +328,14 @@ public class CourierBoy implements Serializable {
 
 	public void setRoadtaxFileName(String roadtaxFileName) {
 		this.roadtaxFileName = roadtaxFileName;
+	}
+
+	public String getVehicleOwner() {
+		return vehicleOwner;
+	}
+
+	public void setVehicleOwner(String vehicleOwner) {
+		this.vehicleOwner = vehicleOwner;
 	} 
 
 	
