@@ -47,19 +47,18 @@ public class ProductController {
 
 		try {
 			Product product = mapper.readValue(productStr, Product.class);
-			product.setPhotoFileName(photo.getOriginalFilename());
-			
-			String photoUniqueFileName = stringUtil.getUniqueString() + "."
-					+ fileUtil.getFileExtension(photo.getOriginalFilename());
-			
-			product.setPhotoUniqueFileName(photoUniqueFileName);
-			
+			if (photo != null) {
+				product.setPhotoFileName(photo.getOriginalFilename());
+				String photoUniqueFileName = stringUtil.getUniqueString() + "."
+						+ fileUtil.getFileExtension(photo.getOriginalFilename());
+				product.setPhotoUniqueFileName(photoUniqueFileName);
+				photo.transferTo(new File(rootDirectory + photoUniqueFileName));
+			}
 			productService.doSaveProduct(product);
-			
+
 			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", null);
 			UUID.randomUUID().toString();
-			
-			photo.transferTo(new File(rootDirectory + photoUniqueFileName));
+
 		} catch (BusinessServiceException e) {
 			// e.printStackTrace();
 			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
@@ -102,6 +101,4 @@ public class ProductController {
 		return serviceResponse;
 	}
 
-	
-	
 }
