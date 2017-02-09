@@ -31,6 +31,9 @@ public class StockEntry implements Serializable{
 	@Column(name="expiry_date")
 	private Date expiryDate;
 	
+	@Column(name="entry_date")
+	private Date entryDate;
+	
 	@ManyToOne
 	@JoinColumn(name="product_id")
 	private Product product;
@@ -87,4 +90,14 @@ public class StockEntry implements Serializable{
 		this.courierCenter = courierCenter;
 	}
 
+	public Date getEntryDate() {
+		return entryDate;
+	}
+
+	public void setEntryDate(Date entryDate) {
+		this.entryDate = entryDate;
+	}
+
+	
+	
 }
