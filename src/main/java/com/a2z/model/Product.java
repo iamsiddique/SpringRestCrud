@@ -25,6 +25,12 @@ public class Product implements Serializable{
 	@Column(name="code")
 	private String code;
 
+	@Column(name="photo_file_name")
+	private String photoFileName;
+
+	@Column(name="photo_unique_file_name")
+	private String photoUniqueFileName;
+
 	public Long getId() {
 		return id;
 	}
@@ -48,5 +54,25 @@ public class Product implements Serializable{
 	public void setCode(String code) {
 		this.code = code;
 	}
+
+	public String getPhotoFileName() {
+		return photoFileName;
+	}
+
+	public void setPhotoFileName(String photoFileName) {
+		this.photoFileName = photoFileName;
+	}
+
+	public String getPhotoUniqueFileName() {
+		return photoUniqueFileName;
+	}
+
+	public void setPhotoUniqueFileName(String photoUniqueFileName) {
+		this.photoUniqueFileName = photoUniqueFileName;
+	}
+
+	
+	
+	
 
 }
