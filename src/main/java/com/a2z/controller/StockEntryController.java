@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a2z.controller.util.ServiceResponseUtils;
-import com.a2z.model.CourierCenter;
 import com.a2z.model.StockEntry;
 import com.a2z.services.StockEntryService;
 import com.a2z.services.exception.BusinessServiceException;
@@ -89,6 +88,25 @@ public class StockEntryController {
 		return serviceResponse;
 	}
 
+	@RequestMapping(value = "/couriercenterid/{id}", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse getStockEntryByCourierCenter( @PathVariable(value = "id") Long id) {
+		ServiceResponse serviceResponse = null;
+		try {
+			List<StockEntry> stockEntryList = stockEntryService.doGetStockEntriesByCourierCenter(id);
+			
+
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", stockEntryList);
+
+		} catch (BusinessServiceException e) {
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+	}
 	
 	
 }

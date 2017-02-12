@@ -66,6 +66,18 @@ public class StockEntryServiceImpl implements StockEntryService {
 		
 	}
 
+	@Override
+	@Transactional
+	public List<StockEntry> doGetStockEntriesByCourierCenter(Long courierCenterId) throws BusinessServiceException {
+		List<StockEntry> stockEntryList = null;
+		try {
+			stockEntryList = stockEntryDAO.getStockEntriesByCourierCenter(courierCenterId);
+		} catch (DataServiceException dataServiceException) {
+			throw new BusinessServiceException(dataServiceException.getMessage(), dataServiceException);
+		}
+		return stockEntryList;
+	}
+
 }
 
 

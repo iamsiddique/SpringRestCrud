@@ -58,5 +58,10 @@ public class StockEntryDAOImpl implements StockEntryDAO {
 		
 	}
 
+	@Override
+	public List<StockEntry> getStockEntriesByCourierCenter(Long courierCenterId) throws DataServiceException {
+		return this.sessionFactory.getCurrentSession().createQuery(" From StockEntry se where se.courierCenter.id=" + courierCenterId).getResultList();
+	}
+
 	
 }
