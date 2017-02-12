@@ -6,12 +6,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a2z.controller.util.ServiceResponseUtils;
+import com.a2z.model.CourierCenter;
 import com.a2z.model.StockEntry;
 import com.a2z.services.StockEntryService;
 import com.a2z.services.exception.BusinessServiceException;
@@ -57,6 +59,26 @@ public class StockEntryController {
 
 		} catch (BusinessServiceException e) {
 			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+	}
+
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse deleteCC( @PathVariable(value = "id") Long id) {
+		ServiceResponse serviceResponse = null;
+		try {
+			StockEntry stockEntry = stockEntryService.doGetStockEntryById(id);
+			
+
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", stockEntry);
+
+		} catch (BusinessServiceException e) {
 			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
 
 		} catch (Exception e) {
