@@ -36,6 +36,9 @@ public class CourierCenter implements Serializable {
 	@Column(name="city")
 	private String city;
 
+	@Column(name="email")
+	private String email;
+
 	
 	public CourierCenter() {
 	}
@@ -86,6 +89,14 @@ public class CourierCenter implements Serializable {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	
