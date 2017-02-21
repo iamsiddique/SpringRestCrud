@@ -34,6 +34,14 @@ public class StockEntry implements Serializable{
 	@Column(name="entry_date")
 	private Date entryDate;
 	
+	@Column(name="shop_name")
+	private String shopName;
+	
+	@Column(name="invoice_number")
+	private String invoiceNumber;
+	
+	
+	
 	@ManyToOne
 	@JoinColumn(name="product_id")
 	private Product product;
@@ -96,6 +104,22 @@ public class StockEntry implements Serializable{
 
 	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
+	}
+
+	public String getShopName() {
+		return shopName;
+	}
+
+	public void setShopName(String shopName) {
+		this.shopName = shopName;
+	}
+
+	public String getInvoiceNumber() {
+		return invoiceNumber;
+	}
+
+	public void setInvoiceNumber(String invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
 	}
 
 	
