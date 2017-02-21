@@ -80,6 +80,11 @@ public class Employee implements Serializable {
 	@JoinColumn(name="user_id")
 	private User user;
 
+	@ManyToOne
+	@JoinColumn(name="courier_center_id")
+	private CourierCenter courierCenter;
+
+	
 	public Employee() {
 	}
 
@@ -236,4 +241,13 @@ public class Employee implements Serializable {
 		this.panFileName = panFileName;
 	}
 
+	public CourierCenter getCourierCenter() {
+		return courierCenter;
+	}
+
+	public void setCourierCenter(CourierCenter courierCenter) {
+		this.courierCenter = courierCenter;
+	}
+
+	
 }
