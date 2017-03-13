@@ -25,6 +25,10 @@ public class StockDispatchProduct implements Serializable{
 	@Column(name="expiry_date")
 	private Date expiryDate;
 	
+	@Column(name="quantity")
+	private Long quantity;
+	
+	
 	@ManyToOne
 	@JoinColumn(name="product_id")
 	private Product product;
@@ -63,6 +67,14 @@ public class StockDispatchProduct implements Serializable{
 
 	public void setStockDispatch(StockDispatch stockDispatch) {
 		this.stockDispatch = stockDispatch;
+	}
+
+	public Long getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Long quantity) {
+		this.quantity = quantity;
 	}
 
 

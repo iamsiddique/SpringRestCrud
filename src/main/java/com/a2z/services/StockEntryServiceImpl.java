@@ -6,9 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.a2z.dao.InventoryDAO;
 import com.a2z.dao.StockEntryDAO;
 import com.a2z.dao.exception.DataServiceException;
-import com.a2z.model.Product;
+import com.a2z.model.Inventory;
 import com.a2z.model.StockEntry;
 import com.a2z.services.exception.BusinessServiceException;
 
@@ -16,12 +17,28 @@ import com.a2z.services.exception.BusinessServiceException;
 public class StockEntryServiceImpl implements StockEntryService {
 	@Autowired
 	StockEntryDAO stockEntryDAO;
+	
+	@Autowired
+	InventoryDAO inventoryDAO;
 
 	@Override
 	@Transactional
 	public void doSaveStockEntry(StockEntry stockEntry) throws BusinessServiceException {
 		try{
 			stockEntryDAO.saveStockEntry(stockEntry);
+		    Inventory inventory = inventoryDAO.getInventoryByProductidCouriercenteridExpirydate(stockEntry.getProduct().getId(),stockEntry.getCourierCenter().getId(), stockEntry.getExpiryDate());
+		    if(inventory==null){
+		    	inventory = new Inventory();
+		    	inventory.setProduct(stockEntry.getProduct());
+		    	inventory.setCourierCenter(stockEntry.getCourierCenter());
+		    	inventory.setQuantity(stockEntry.getQuantity());
+		    	inventory.setExpiryDate(stockEntry.getExpiryDate());
+		    	inventoryDAO.saveInventory(inventory);
+		    }else{
+		    	Long updatedQuatity = inventory.getQuantity()+stockEntry.getQuantity();
+		    	inventory.setQuantity(updatedQuatity);
+		    	inventoryDAO.updateInventory(inventory);
+		    }
 		}catch(DataServiceException dataServiceException){
 			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
 		}

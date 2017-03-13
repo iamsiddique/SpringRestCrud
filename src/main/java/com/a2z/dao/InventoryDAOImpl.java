@@ -1,5 +1,7 @@
 package com.a2z.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -48,6 +50,38 @@ public class InventoryDAOImpl implements InventoryDAO {
 
 	}
 
+	@Override
+	public Inventory getInventoryByProductidCouriercenteridExpirydate(Long productId,Long courierCenterId,Date expiryDate) throws DataServiceException {
+		try {
+
+			
+			String hql = "From Inventory i where i.product.id = :productId and i.courierCenter.id = :courierCenterId and i.expiryDate= :expiryDate";
+			SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+			String finalDateStr=sdf.format(expiryDate);
+			Date finalDate = null;
+			try{
+			finalDate = sdf.parse(finalDateStr)	;
+			}catch(Exception e){
+				
+			}
+			List<Inventory> list = this.sessionFactory.getCurrentSession().createQuery(hql)
+			.setParameter("productId", productId)
+			.setParameter("courierCenterId", courierCenterId)
+			.setParameter("expiryDate", finalDate)
+			.getResultList();
+			
+			
+			for (Inventory inventory : list) {
+				return inventory;
+			}
+		} catch (DataAccessException e) {
+			throw new DataServiceException("data retrieval fail", e);
+		}
+		return null;
+
+	}
+
+	
 	@Override
 	public void updateInventory(Inventory inventory) throws DataServiceException {
 		try {
