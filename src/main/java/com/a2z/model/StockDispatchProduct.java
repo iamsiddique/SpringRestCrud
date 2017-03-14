@@ -28,6 +28,8 @@ public class StockDispatchProduct implements Serializable{
 	@Column(name="quantity")
 	private Long quantity;
 	
+	@Column(name="invoice_number")
+	private String invoiceNumber;
 	
 	@ManyToOne
 	@JoinColumn(name="product_id")
@@ -75,6 +77,14 @@ public class StockDispatchProduct implements Serializable{
 
 	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
+	}
+
+	public String getInvoiceNumber() {
+		return invoiceNumber;
+	}
+
+	public void setInvoiceNumber(String invoiceNumber) {
+		this.invoiceNumber = invoiceNumber;
 	}
 
 
