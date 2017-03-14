@@ -30,6 +30,11 @@ public class StockDispatchProductDAOImpl implements StockDispatchProductDAO {
 	public List<StockDispatchProduct> getAllStockDispatchProduct() throws DataServiceException {
 		return this.sessionFactory.getCurrentSession().createQuery(" From StockDispatchProduct").getResultList();
 	}
+	
+	@Override
+	public List<StockDispatchProduct> getStockDispatchProductsByStockDispatchId(Long stockDispatchId) throws DataServiceException {
+		return this.sessionFactory.getCurrentSession().createQuery(" From StockDispatchProduct sdp where sdp.stockDispatch.id="+stockDispatchId).getResultList();
+	}
 
 	@Override
 	public StockDispatchProduct getStockDispatchProductById(Long id) throws DataServiceException {

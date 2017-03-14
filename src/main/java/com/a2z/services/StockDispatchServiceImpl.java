@@ -1,5 +1,7 @@
 package com.a2z.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +11,7 @@ import com.a2z.dao.StockDispatchDAO;
 import com.a2z.dao.StockDispatchProductDAO;
 import com.a2z.dao.exception.DataServiceException;
 import com.a2z.model.Inventory;
+import com.a2z.model.StockDispatch;
 import com.a2z.model.StockDispatchProduct;
 import com.a2z.services.exception.BusinessServiceException;
 import com.a2z.vo.StockDispatchVO;
@@ -50,6 +53,28 @@ public class StockDispatchServiceImpl implements StockDispatchService {
 			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
 		}
 
+	}
+	
+	@Override
+	@Transactional
+	public StockDispatchVO doGetStockDispatchById(Long id) throws BusinessServiceException {
+		StockDispatch stockDispatch =null;
+		StockDispatchVO stockDispatchVO = null;
+		try{
+			
+			stockDispatch = stockDispatchDAO.getStockDispatchById(id);
+			if(stockDispatch!=null){
+				stockDispatchVO = new StockDispatchVO();
+				stockDispatchVO.setInvoiceDetails(stockDispatch);
+				List <StockDispatchProduct> products = stockDispatchProductDAO.getStockDispatchProductsByStockDispatchId(stockDispatch.getId());
+				stockDispatchVO.setProducts(products);
+			}
+			
+		}catch(DataServiceException dataServiceException){
+			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
+		}
+		
+		return stockDispatchVO;
 	}
 
 }

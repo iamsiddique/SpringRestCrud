@@ -5,5 +5,7 @@ import com.a2z.vo.StockDispatchVO;
 
 public interface StockDispatchService {
 	void doSaveStockDispatch(StockDispatchVO stockDispatchVO) throws BusinessServiceException;
+
+	StockDispatchVO doGetStockDispatchById(Long id) throws BusinessServiceException;
 	
 }

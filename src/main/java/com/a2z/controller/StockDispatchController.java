@@ -4,12 +4,14 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a2z.controller.util.ServiceResponseUtils;
+import com.a2z.model.StockDispatch;
 import com.a2z.services.StockDispatchService;
 import com.a2z.services.exception.BusinessServiceException;
 import com.a2z.vo.ServiceResponse;
@@ -34,6 +36,26 @@ public class StockDispatchController {
 
 			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", stockDispatchVO);
 
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+	
+	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse deactivateCourierBoy(@PathVariable(value = "id") Long id) {
+		ServiceResponse serviceResponse = null;
+		try {
+			StockDispatchVO stockDispatchVO = stockDispatchService.doGetStockDispatchById(id);
+			
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrieved successfully", stockDispatchVO);
 		} catch (BusinessServiceException e) {
 			// e.printStackTrace();
 			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);

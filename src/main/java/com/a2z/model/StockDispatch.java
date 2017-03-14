@@ -65,6 +65,7 @@ public class StockDispatch implements Serializable{
 		this.invoiceDate = invoiceDate;
 	}
 
+
 		
 
 }
