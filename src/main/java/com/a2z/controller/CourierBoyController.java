@@ -203,7 +203,6 @@ public class CourierBoyController {
 	public @ResponseBody ServiceResponse getCourierBoys() {
 		ServiceResponse serviceResponse = null;
 		try {
-			System.out.println(rootDirectory);
 			List<CourierBoy> courierBoysList = courierBoyService.doGetAllActiveCourierBoys();
 			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", courierBoysList);
 

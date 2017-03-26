@@ -97,7 +97,6 @@ public class CourierBoyServiceImpl implements CourierBoyService {
 	
 	
 	@Override
-	@Transactional
 	public List<CourierBoy> doGetAllActiveCourierBoys() throws BusinessServiceException {
 		// TODO Auto-generated method stub
 		List<CourierBoy> courierBoysList =null;

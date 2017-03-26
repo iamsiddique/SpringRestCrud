@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.a2z.dao.exception.DataServiceException;
 import com.a2z.model.CourierBoy;
@@ -40,6 +41,7 @@ public class CourierBoyDAOImpl implements CourierBoyDAO {
 	}
 
 	@Override
+	@Transactional
 	public List<CourierBoy> getAllActiveCourierBoys() throws DataServiceException {
 		return this.sessionFactory.getCurrentSession().createQuery(" From CourierBoy where enable=1").getResultList();
 	}
