@@ -1,5 +1,7 @@
 package com.a2z.controller;
 
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a2z.controller.util.ServiceResponseUtils;
+import com.a2z.model.Employee;
 import com.a2z.model.StockDispatch;
 import com.a2z.services.StockDispatchService;
 import com.a2z.services.exception.BusinessServiceException;
@@ -48,6 +51,28 @@ public class StockDispatchController {
 		return serviceResponse;
 
 	}
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse getEmployees() {
+		ServiceResponse serviceResponse = null;
+		try {
+			
+			List<StockDispatch> stockDispatchList=stockDispatchService.doGetAllStockDispatch();	
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", stockDispatchList);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+	
 	
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
 	public @ResponseBody ServiceResponse deactivateCourierBoy(@PathVariable(value = "id") Long id) {

@@ -77,4 +77,16 @@ public class StockDispatchServiceImpl implements StockDispatchService {
 		return stockDispatchVO;
 	}
 
+	@Override
+	@Transactional
+	public List<StockDispatch> doGetAllStockDispatch() throws BusinessServiceException {
+		List<StockDispatch> stockDispatchList = null;
+		try{
+			stockDispatchList = stockDispatchDAO.getAllStockDispatch();
+		}catch(DataServiceException dataServiceException){
+			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
+		}
+		return stockDispatchList;
+	}
+
 }
