@@ -48,6 +48,30 @@ public class CourierCenterController {
 
 	}
 
+	@RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ServiceResponse updateCC(@RequestBody CourierCenter courierCenter) {
+		ServiceResponse serviceResponse = null;
+		try {
+			courierCenterService.doSaveCourierCenter(courierCenter);
+
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data updated successfully", courierCenter);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+
+	
+	
+	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody ServiceResponse getAllCC() {
 		ServiceResponse serviceResponse = null;

@@ -8,8 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.a2z.dao.ProductDAO;
 import com.a2z.dao.exception.DataServiceException;
-import com.a2z.model.CourierBoy;
-import com.a2z.model.CourierCenter;
 import com.a2z.model.Product;
 import com.a2z.services.exception.BusinessServiceException;
 

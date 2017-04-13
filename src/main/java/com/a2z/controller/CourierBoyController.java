@@ -119,10 +119,7 @@ public class CourierBoyController {
 			HttpServletRequest request) {
 		ServiceResponse serviceResponse = null;
 		ObjectMapper mapper = new ObjectMapper();
-		OutputStream outputStream = null;
-
-		System.out.println("Root Directory " + rootDirectory);
-
+		
 		try {
 			
 			CourierBoy courierBoy = mapper.readValue(userInfo, CourierBoy.class);

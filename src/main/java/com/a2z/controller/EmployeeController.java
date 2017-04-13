@@ -5,7 +5,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.List;
-import java.util.UUID;
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -118,9 +117,6 @@ public class EmployeeController {
 			@RequestParam(value = "photo", required = false) MultipartFile photo, HttpServletRequest request) {
 		ServiceResponse serviceResponse = null;
 		ObjectMapper mapper = new ObjectMapper();
-		OutputStream outputStream = null;
-
-		System.out.println("Root Directory " + rootDirectory);
 
 		try {
 

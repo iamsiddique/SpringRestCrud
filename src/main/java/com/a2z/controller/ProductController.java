@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.a2z.controller.util.ServiceResponseUtils;
-import com.a2z.model.CourierBoy;
 import com.a2z.model.Product;
 import com.a2z.services.CourierBoyService;
 import com.a2z.services.ProductService;
@@ -50,23 +49,15 @@ public class ProductController {
 	static final Logger logger = Logger.getLogger(UserController.class);
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public @ResponseBody ServiceResponse updateCourierBoy(@RequestParam(value = "product") String productInfo,@RequestParam(value = "dl", required=false) MultipartFile dl, 	
+	public @ResponseBody ServiceResponse saveCourierBoy(@RequestParam(value = "product") String productInfo,@RequestParam(value = "dl", required=false) MultipartFile dl, 	
 			@RequestParam(value = "photo", required=false) MultipartFile photo,
 			HttpServletRequest request) {
 		ServiceResponse serviceResponse = null;
 		ObjectMapper mapper = new ObjectMapper();
-		OutputStream outputStream = null;
-
-		System.out.println("Root Directory " + rootDirectory);
-
 		try {
 			
 			Product product = mapper.readValue(productInfo, Product.class);
-			String dlUniqueFileName = null;
 			String photoUniqueFileName = null;
-	
-			
-
 	
 			if (photo != null) {
 				product.setPhotoFileName(photo.getOriginalFilename());
@@ -76,14 +67,7 @@ public class ProductController {
 				photo.transferTo(new File(rootDirectory + photoUniqueFileName));
 			}
 
-	
 			productService.doSaveProduct(product);
-			
-			
-			
-			
-			
-			
 			
 			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", null);
 		} catch (BusinessServiceException e) {
@@ -107,6 +91,50 @@ public class ProductController {
 	}
 
 
+	@RequestMapping(value = "/update", method = RequestMethod.POST)
+	public @ResponseBody ServiceResponse updateCourierBoy(@RequestParam(value = "product") String productInfo,@RequestParam(value = "dl", required=false) MultipartFile dl, 	
+			@RequestParam(value = "photo", required=false) MultipartFile photo,
+			HttpServletRequest request) {
+		ServiceResponse serviceResponse = null;
+		ObjectMapper mapper = new ObjectMapper();
+		try {
+			
+			Product product = mapper.readValue(productInfo, Product.class);
+			String photoUniqueFileName = null;
+	
+			if (photo != null) {
+				product.setPhotoFileName(photo.getOriginalFilename());
+				photoUniqueFileName = stringUtil.getUniqueString() + "."
+						+ fileUtil.getFileExtension(photo.getOriginalFilename());
+				product.setPhotoUniqueFileName(photoUniqueFileName);
+				photo.transferTo(new File(rootDirectory + photoUniqueFileName));
+			}
+
+			productService.doSaveProduct(product);
+			
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", null);
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(e.getCause().getMessage());
+			if (e.getCause().getMessage().contains("unique_username")) {
+				serviceResponse = ServiceResponseUtils.dataResponse("0", "duplicate username", null);
+			} else {
+				serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+			}
+
+		} catch (Throwable e) {
+			e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+		}
+		return serviceResponse;
+	}
+
+	
+	
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public @ResponseBody ServiceResponse getAllProducts() {
