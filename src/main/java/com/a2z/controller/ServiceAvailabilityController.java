@@ -40,6 +40,11 @@ public class ServiceAvailabilityController {
 			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
 
 		} catch (Exception e) {
+			if(e.getCause().getMessage().contains("pincode"))
+				serviceResponse = ServiceResponseUtils.dataResponse("2", e.getCause().getMessage(), null);
+			else
+				
+				serviceResponse = ServiceResponseUtils.dataResponse("0", e.getCause().getMessage(), null);
 			e.printStackTrace();
 		} catch (Throwable e) {
 			e.printStackTrace();
