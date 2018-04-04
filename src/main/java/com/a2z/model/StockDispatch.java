@@ -28,6 +28,9 @@ public class StockDispatch implements Serializable{
 	@Column(name="invoice_date")
 	private Date invoiceDate;
 
+	@Column(name="payment_mode")
+	private String paymentMode;
+	
 	@ManyToOne
 	@JoinColumn(name="courier_center_id")
 	private CourierCenter courierCenter;
@@ -64,6 +67,18 @@ public class StockDispatch implements Serializable{
 	public void setInvoiceDate(Date invoiceDate) {
 		this.invoiceDate = invoiceDate;
 	}
+
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+
+
+	
+	
 
 
 		
