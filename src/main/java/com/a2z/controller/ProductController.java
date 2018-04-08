@@ -121,6 +121,7 @@ public class ProductController {
 			e.printStackTrace();
 			System.out.println(e.getCause().getMessage());
 			if (e.getCause().getMessage().contains("unique_product_code")) {
+				serviceResponse = ServiceResponseUtils.dataResponse("0", "duplicate product", null);
 			} else {
 				serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
 			}

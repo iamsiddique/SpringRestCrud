@@ -92,4 +92,15 @@ public class InventoryDAOImpl implements InventoryDAO {
 		
 	}
 
+	@Override
+	public List<Inventory> getInventoryByCouriercenterid(Long courierCenterId) throws DataServiceException {
+		String hql = "From Inventory i where i.courierCenter.id = :courierCenterId";
+	
+		List<Inventory> list = this.sessionFactory.getCurrentSession().createQuery(hql)
+		.setParameter("courierCenterId", courierCenterId)
+		.getResultList();
+		
+		return list;
+	}
+
 }

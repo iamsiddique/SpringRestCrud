@@ -12,4 +12,5 @@ public interface InventoryDAO {
 	Inventory getInventoryById(Long id) throws DataServiceException;
 	void updateInventory(Inventory inventory) throws DataServiceException;
 	Inventory getInventoryByProductidCouriercenteridExpirydate(Long productId,Long courierCenterId,Date expiryDate) throws DataServiceException;
+	List<Inventory> getInventoryByCouriercenterid(Long courierCenterId) throws DataServiceException;
 }
