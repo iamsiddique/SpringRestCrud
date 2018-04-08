@@ -77,8 +77,8 @@ public class ProductController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getCause().getMessage());
-			if (e.getCause().getMessage().contains("unique_username")) {
-				serviceResponse = ServiceResponseUtils.dataResponse("0", "duplicate username", null);
+			if (e.getCause().getMessage().contains("unique_product_code")) {
+				serviceResponse = ServiceResponseUtils.dataResponse("0", "duplicate product", null);
 			} else {
 				serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
 			}
@@ -120,8 +120,7 @@ public class ProductController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println(e.getCause().getMessage());
-			if (e.getCause().getMessage().contains("unique_username")) {
-				serviceResponse = ServiceResponseUtils.dataResponse("0", "duplicate username", null);
+			if (e.getCause().getMessage().contains("unique_product_code")) {
 			} else {
 				serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
 			}
