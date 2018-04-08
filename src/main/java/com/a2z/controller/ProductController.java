@@ -110,7 +110,7 @@ public class ProductController {
 				photo.transferTo(new File(rootDirectory + photoUniqueFileName));
 			}
 
-			productService.doSaveProduct(product);
+			productService.doUpdateProduct(product);
 			
 			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", null);
 		} catch (BusinessServiceException e) {

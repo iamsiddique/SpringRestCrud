@@ -31,9 +31,12 @@
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost:3306/a2z_courier" />
+		<property name="url" value="jdbc:mysql://mydbinstancea2z.c9f6sswwxcmo.eu-west-1.rds.amazonaws.com:3306/a2z_courier" />
+		<property name="username" value="a2zdba" />
+		<property name="password" value="a2zmysql" />
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/a2z_courier" />
 		<property name="username" value="root" />
-		<property name="password" value="mysql" />
+		<property name="password" value="mysql" /> -->
 	</bean>
 
 	<bean id="sessionFactory"

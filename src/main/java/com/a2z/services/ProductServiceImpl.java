@@ -57,6 +57,11 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public void doUpdateProduct(Product product) throws BusinessServiceException {
 		try{
+			Product productFromDao = productDAO.getProductById(product.getId());
+			if(product.getPhotoFileName()==null){
+				product.setPhotoFileName(productFromDao.getPhotoFileName());
+				product.setPhotoUniqueFileName(productFromDao.getPhotoUniqueFileName());
+			}
 			productDAO.updateProduct(product);
 		}catch(DataServiceException dataServiceException){
 			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
