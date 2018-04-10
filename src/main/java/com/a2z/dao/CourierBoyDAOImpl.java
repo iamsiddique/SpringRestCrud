@@ -61,4 +61,20 @@ public class CourierBoyDAOImpl implements CourierBoyDAO {
 		}
 		return null;
 	}
+
+	@Override
+	public Long getCourierBoyIdByUserById(Long id) throws DataServiceException {
+		try {
+
+			List<Object> list = this.sessionFactory.getCurrentSession()
+					.createQuery("Select cb.id From CourierBoy cb where cb.user.id=" + id).getResultList();
+
+			for (Object obj : list) {
+				return (Long)obj;
+			}
+		} catch (DataAccessException e) {
+			throw new DataServiceException("data retrieval fail", e);
+		}
+		return null;
+	}
 }

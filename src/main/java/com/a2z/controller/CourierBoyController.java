@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,6 +26,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.a2z.controller.util.ServiceResponseUtils;
 import com.a2z.model.CourierBoy;
+import com.a2z.model.CourierBoyInvoices;
+import com.a2z.services.CourierBoyInvoicesService;
 import com.a2z.services.CourierBoyService;
 import com.a2z.services.exception.BusinessServiceException;
 import com.a2z.util.FileUtil;
@@ -37,6 +41,9 @@ public class CourierBoyController {
 
 	@Autowired
 	CourierBoyService courierBoyService;
+	
+	@Autowired
+	CourierBoyInvoicesService courierBoyInvoicesService;
 
 	FileUtil fileUtil = new FileUtil();
 	StringUtil stringUtil = new StringUtil();
@@ -323,6 +330,78 @@ public class CourierBoyController {
 
 		inputStream.close();
 		outStream.close();
+
+	}
+	
+	@RequestMapping(value = "/assign", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ServiceResponse saveProduct(@RequestBody CourierBoyInvoices courierBoyInvoices) {
+		ServiceResponse serviceResponse = null;
+		try {
+			courierBoyInvoicesService.doSave(courierBoyInvoices);
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", courierBoyInvoices);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+	
+	@RequestMapping(value = "/id/{id}/status/{status}", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse getStockEntryByCourierCenter( @PathVariable(value = "id") Long courierBoyId,@PathVariable(value = "status") Character status) {
+		ServiceResponse serviceResponse = null;
+		try {
+			List<CourierBoyInvoices> courierBoyInvoicesList = courierBoyInvoicesService.doGetByCourierboyidStatus(courierBoyId, status);
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", courierBoyInvoicesList);
+		} catch (BusinessServiceException e) {
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+	}
+	
+	@RequestMapping(value = "/userid/{id}/status/{status}", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse getByUserIdStatus( @PathVariable(value = "id") Long courierBoyId,@PathVariable(value = "status") Character status) {
+		ServiceResponse serviceResponse = null;
+		try {
+			List<CourierBoyInvoices> courierBoyInvoicesList = courierBoyInvoicesService.doGetByUseridStatus(courierBoyId, status);
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", courierBoyInvoicesList);
+		} catch (BusinessServiceException e) {
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+	}
+	
+	@RequestMapping(value = "/updatecourierstatus", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ServiceResponse updateCourierStatus(@RequestBody CourierBoyInvoices courierBoyInvoices) {
+		ServiceResponse serviceResponse = null;
+		try {
+			courierBoyInvoicesService.doUpdateStatus(courierBoyInvoices.getId(), courierBoyInvoices.getCourierStatus());
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", courierBoyInvoices);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
 
 	}
 

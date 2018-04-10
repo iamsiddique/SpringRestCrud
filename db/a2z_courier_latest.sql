@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.5.42)
-# Date: 2018-04-08 18:01:57
+# Date: 2018-04-11 00:33:58
 # Generator: MySQL-Front 5.4  (Build 1.10)
 
 /*!40101 SET NAMES utf8 */;
@@ -59,14 +59,15 @@ CREATE TABLE `products` (
   `code` varchar(255) DEFAULT NULL,
   `photo_file_name` varchar(255) DEFAULT NULL,
   `photo_unique_file_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `unique_product_code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "products"
 #
 
-INSERT INTO `products` VALUES (13,'name123','code123','assessment_start_page.jpeg','b23e15e26ac94ca0949f70e3959eda63.jpeg'),(14,'name','code',NULL,NULL),(15,'name','code123',NULL,NULL);
+INSERT INTO `products` VALUES (13,'name123','code123','assessment_start_page.jpeg','b23e15e26ac94ca0949f70e3959eda63.jpeg'),(14,'name','code',NULL,NULL),(16,'iphone','I0101','axis_cheque.jpg','e436603a57dc4548acd163c85fe5b367.jpg'),(19,'iphone','I0102','axis_cheque.jpg','a5bc9236316d401986807271f122f2be.jpg');
 
 #
 # Structure for table "inventory"
@@ -90,7 +91,7 @@ CREATE TABLE `inventory` (
 # Data for table "inventory"
 #
 
-INSERT INTO `inventory` VALUES (11,13,'2020-10-10',10,435),(12,13,'2020-10-11',10,-19),(13,13,'2020-10-11',14,10),(14,13,'2017-03-25',10,116),(15,14,'2017-03-25',10,45);
+INSERT INTO `inventory` VALUES (11,13,'2020-10-10',10,435),(12,13,'2020-10-11',10,19),(13,13,'2020-10-11',14,10),(14,13,'2017-03-25',10,116),(15,14,'2017-03-25',10,45);
 
 #
 # Structure for table "seed_roles"
@@ -212,13 +213,13 @@ CREATE TABLE `users` (
   UNIQUE KEY `unique_username` (`username`),
   KEY `roles_fk` (`role_id`),
   CONSTRAINT `roles_fk` FOREIGN KEY (`role_id`) REFERENCES `seed_roles` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=95 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "users"
 #
 
-INSERT INTO `users` VALUES (1,'admin','admin',1),(72,'test','a',2),(73,'siddi','a',2),(86,'newuploaduser123',NULL,3),(89,'n123',NULL,3),(91,'dsfdn123',NULL,3),(92,'aaaaaaaaaaa',NULL,2),(94,'aaaaaaaaaaaaaaaaaaaaaaaaa',NULL,2);
+INSERT INTO `users` VALUES (1,'admin','admin',1),(72,'test','a',2),(73,'siddi','a',2),(86,'newuploaduser123',NULL,3),(89,'n123',NULL,3),(91,'dsfdn123',NULL,3),(92,'aaaaaaaaaaa',NULL,2),(94,'aaaaaaaaaaaaaaaaaaaaaaaaa',NULL,2),(96,'uploaduser123','admin20',2);
 
 #
 # Structure for table "employees"
@@ -296,10 +297,35 @@ CREATE TABLE `courier_boys` (
   PRIMARY KEY (`Id`),
   KEY `courier_boys_ibfk_1` (`user_id`),
   CONSTRAINT `courier_boys_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`Id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=latin1;
 
 #
 # Data for table "courier_boys"
 #
 
-INSERT INTO `courier_boys` VALUES (21,'viqar','viqar','viqar','viqar','viqar','viqar','2W','viqar','viqar','viqar',NULL,NULL,NULL,NULL,NULL,72,NULL,'viqar',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL),(22,'siddi','siddi','siddi','siddi','siddi','siddi','2W','siddi','siddi','siddi',NULL,NULL,NULL,NULL,NULL,73,'siddi','siddi','siddi','siddi',1,NULL,NULL,NULL,NULL,NULL,NULL),(23,'aaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaaaa','aaaaaaaaa','2W','aaaaaaa','aaaaaaa','aaaaaaaaa','e1a5f55802c94a7bae469643e125ac26.jpg','2fe639e56f734244b31191d60fea0a4a.jpg','a6f5e227e23e4ff5bdd91680bdacc731.jpg','50443bcbaecc4d6a889c0ad72bcdc1eb.jpg','ee15e4c7842b47b2a0251e9fed8afe13.jpg',92,'aaaaaaaaa','aaaaaaa','aaaaaaaaa','aaaaaaaaaa',1,'my.jpg','my.jpg','my.jpg','my.jpg','my.jpg',NULL),(24,'aaaaaaaaaaa','aaaaaaaaaaa','aaaaaa','aaaaaaaaaaaaa','aaaaaaaaaa','aaaaaaaaaa','2W','aaaaaaaaa','aaaaaaaaa','aaaaaaaaa','d36915ce1a9645cf9a3bc9c4eb62c3fc.jpg','d1edb51d2b624f4ca3101d2120bc5a44.jpg','82964eebb3464342a94f9ff40c56516b.jpg','3f7fd5eebe7a4dfcb8f2a078f7376d2a.jpg','f23813eba88745589af1b83ebbf70a02.jpg',94,'aaaaaaaaaa','aaaaaaaaa','aaaaaaaa','aaaaaaaa',1,'my.jpg','my.jpg','my.jpg','my.jpg','my.jpg','S');
+INSERT INTO `courier_boys` VALUES (21,'viqar','viqar','viqar','viqar','viqar','viqar','2W','viqar','viqar','viqar',NULL,NULL,NULL,NULL,NULL,72,NULL,'viqar',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL),(22,'siddi','siddi','siddi','siddi','siddi','siddi','2W','siddi','siddi','siddi',NULL,NULL,NULL,NULL,NULL,73,'siddi','siddi','siddi','siddi',1,NULL,NULL,NULL,NULL,NULL,NULL),(23,'aaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaa','aaaaaaaaaa','aaaaaaaaa','2W','aaaaaaa','aaaaaaa','aaaaaaaaa','e1a5f55802c94a7bae469643e125ac26.jpg','2fe639e56f734244b31191d60fea0a4a.jpg','a6f5e227e23e4ff5bdd91680bdacc731.jpg','50443bcbaecc4d6a889c0ad72bcdc1eb.jpg','ee15e4c7842b47b2a0251e9fed8afe13.jpg',92,'aaaaaaaaa','aaaaaaa','aaaaaaaaa','aaaaaaaaaa',1,'my.jpg','my.jpg','my.jpg','my.jpg','my.jpg',NULL),(24,'aaaaaaaaaaa','aaaaaaaaaaa','aaaaaa','aaaaaaaaaaaaa','aaaaaaaaaa','aaaaaaaaaa','2W','aaaaaaaaa','aaaaaaaaa','aaaaaaaaa','d36915ce1a9645cf9a3bc9c4eb62c3fc.jpg','d1edb51d2b624f4ca3101d2120bc5a44.jpg','82964eebb3464342a94f9ff40c56516b.jpg','3f7fd5eebe7a4dfcb8f2a078f7376d2a.jpg','f23813eba88745589af1b83ebbf70a02.jpg',94,'aaaaaaaaaa','aaaaaaaaa','aaaaaaaa','aaaaaaaa',1,'my.jpg','my.jpg','my.jpg','my.jpg','my.jpg','S'),(25,'viqar','admin',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,'224172e6829442cd888c089bc098c4a9.jpg','63e54146f5b14aa5ab34484391cb001f.jpg','40863f038eaf4c7e83ca7209d0af7ede.jpg','98c66b1c6b174f0b95f9c1e41331ce06.jpg','8bb485bd3f894dffb413bf7adf52d11d.jpg',96,NULL,NULL,NULL,NULL,1,'aadhar.jpg','axis_cheque.jpg','aadhar.jpg','aadhar.jpg','axis_cheque.jpg',NULL);
+
+#
+# Structure for table "courier_boy_invoices"
+#
+
+DROP TABLE IF EXISTS `courier_boy_invoices`;
+CREATE TABLE `courier_boy_invoices` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `courier_boy_id` int(11) DEFAULT NULL,
+  `stock_dispatch_id` int(11) DEFAULT NULL,
+  `courier_status` char(1) DEFAULT NULL,
+  `assigned_date` date DEFAULT NULL,
+  `returned_date` date DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `courier_boy_id` (`courier_boy_id`),
+  KEY `stock_dispatch_id` (`stock_dispatch_id`),
+  CONSTRAINT `courier_boy_invoices_ibfk_1` FOREIGN KEY (`courier_boy_id`) REFERENCES `courier_boys` (`Id`),
+  CONSTRAINT `courier_boy_invoices_ibfk_2` FOREIGN KEY (`stock_dispatch_id`) REFERENCES `stock_dispatch` (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+#
+# Data for table "courier_boy_invoices"
+#
+
+INSERT INTO `courier_boy_invoices` VALUES (1,21,12,NULL,NULL,NULL),(2,21,12,NULL,'2018-04-09',NULL),(3,21,12,NULL,'2018-04-09',NULL),(4,21,12,'A','2018-04-09',NULL),(5,21,12,'D','2018-04-10',NULL),(6,21,12,'A','2018-04-10',NULL);

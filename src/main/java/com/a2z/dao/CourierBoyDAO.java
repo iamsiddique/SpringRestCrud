@@ -10,5 +10,6 @@ public interface CourierBoyDAO {
 	List<CourierBoy> getAllCourierBoys() throws DataServiceException;
 	List<CourierBoy> getAllActiveCourierBoys() throws DataServiceException;
 	CourierBoy getCourierBoyWithUserById(Long id) throws DataServiceException;
+	Long getCourierBoyIdByUserById(Long id) throws DataServiceException;
 	void updateCourierBoy(CourierBoy courierBoy) throws DataServiceException;
 }
