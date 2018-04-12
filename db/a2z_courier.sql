@@ -1,5 +1,5 @@
 ﻿# Host: localhost  (Version 5.5.42)
-# Date: 2018-04-11 00:33:58
+# Date: 2018-04-12 09:37:36
 # Generator: MySQL-Front 5.4  (Build 1.10)
 
 /*!40101 SET NAMES utf8 */;
@@ -315,8 +315,9 @@ CREATE TABLE `courier_boy_invoices` (
   `courier_boy_id` int(11) DEFAULT NULL,
   `stock_dispatch_id` int(11) DEFAULT NULL,
   `courier_status` char(1) DEFAULT NULL,
-  `assigned_date` date DEFAULT NULL,
-  `returned_date` date DEFAULT NULL,
+  `assigned_date` datetime DEFAULT NULL,
+  `returned_date` datetime DEFAULT NULL,
+  `delivered_date` datetime DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `courier_boy_id` (`courier_boy_id`),
   KEY `stock_dispatch_id` (`stock_dispatch_id`),
@@ -328,4 +329,4 @@ CREATE TABLE `courier_boy_invoices` (
 # Data for table "courier_boy_invoices"
 #
 
-INSERT INTO `courier_boy_invoices` VALUES (1,21,12,NULL,NULL,NULL),(2,21,12,NULL,'2018-04-09',NULL),(3,21,12,NULL,'2018-04-09',NULL),(4,21,12,'A','2018-04-09',NULL),(5,21,12,'D','2018-04-10',NULL),(6,21,12,'A','2018-04-10',NULL);
+INSERT INTO `courier_boy_invoices` VALUES (1,21,12,NULL,NULL,NULL,NULL),(2,21,12,NULL,'2018-04-09 00:00:00',NULL,NULL),(3,21,12,NULL,'2018-04-09 00:00:00',NULL,NULL),(4,21,12,'A','2018-04-09 00:00:00',NULL,NULL),(5,21,12,'D','2018-04-10 00:00:00',NULL,NULL),(6,21,12,'D','2018-04-10 00:00:00',NULL,'2018-04-11 00:53:46');

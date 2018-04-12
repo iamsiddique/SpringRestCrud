@@ -28,6 +28,9 @@ public class CourierBoyInvoices implements Serializable{
 	@Column(name="returned_date")
 	private Date returnedDate;
 	
+	@Column(name="delivered_date")
+	private Date deliveredDate;
+	
 	@Column(name="courier_status")
 	private Character courierStatus;
 	
@@ -88,12 +91,13 @@ public class CourierBoyInvoices implements Serializable{
 	public void setStockDispatch(StockDispatch stockDispatch) {
 		this.stockDispatch = stockDispatch;
 	}
-	
-	
-	
-	
 
-	
-		
+	public Date getDeliveredDate() {
+		return deliveredDate;
+	}
 
+	public void setDeliveredDate(Date deliveredDate) {
+		this.deliveredDate = deliveredDate;
+	}
+	
 }

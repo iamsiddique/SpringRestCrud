@@ -69,6 +69,9 @@ public class CourierBoyInvoicesServiceImpl implements CourierBoyInvoicesService 
 		try {
 			CourierBoyInvoices courierBoyInvoicesFromDao = courierBoyInvoicesDAO.getById(courierBoyInvoicesId);
 			courierBoyInvoicesFromDao.setCourierStatus(status);
+			if(status=='D'){
+				courierBoyInvoicesFromDao.setDeliveredDate(new Date());
+			}
 			courierBoyInvoicesDAO.update(courierBoyInvoicesFromDao);
 
 		} catch (DataServiceException dataServiceException) {
