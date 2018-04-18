@@ -31,8 +31,14 @@ public class CourierBoyInvoices implements Serializable{
 	@Column(name="delivered_date")
 	private Date deliveredDate;
 	
+	@Column(name="payment_date")
+	private Date paymentDate;
+	
 	@Column(name="courier_status")
 	private Character courierStatus;
+	
+	@Column(name="amount")
+	private Long amount;
 	
 	@ManyToOne
 	@JoinColumn(name="courier_boy_id")
@@ -99,5 +105,23 @@ public class CourierBoyInvoices implements Serializable{
 	public void setDeliveredDate(Date deliveredDate) {
 		this.deliveredDate = deliveredDate;
 	}
+
+	public Date getPaymentDate() {
+		return paymentDate;
+	}
+
+	public void setPaymentDate(Date paymentDate) {
+		this.paymentDate = paymentDate;
+	}
+
+	public Long getAmount() {
+		return amount;
+	}
+
+	public void setAmount(Long amount) {
+		this.amount = amount;
+	}
+	
+	
 	
 }

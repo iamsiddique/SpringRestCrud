@@ -72,8 +72,13 @@ public class CourierBoyInvoicesServiceImpl implements CourierBoyInvoicesService 
 			if(status=='D'){
 				courierBoyInvoicesFromDao.setDeliveredDate(new Date());
 			}
+			if(status=='P'){
+				courierBoyInvoicesFromDao.setPaymentDate(new Date());
+				courierBoyInvoicesFromDao.setAmount(10L);
+			}
+			
 			courierBoyInvoicesDAO.update(courierBoyInvoicesFromDao);
-
+			
 		} catch (DataServiceException dataServiceException) {
 			throw new BusinessServiceException(dataServiceException.getMessage(), dataServiceException);
 		}
@@ -117,6 +122,24 @@ public class CourierBoyInvoicesServiceImpl implements CourierBoyInvoicesService 
 			throw new BusinessServiceException(dataServiceException.getMessage(), dataServiceException);
 		}
 		return courierBoyInvoicesList;
+	}
+
+	@Override
+	@Transactional
+	public void doMarkPaid(List<CourierBoyInvoices> courierBoyInvoicesList) throws BusinessServiceException {
+		try {
+			for(CourierBoyInvoices courierBoyInvoices : courierBoyInvoicesList){
+				 	CourierBoyInvoices courierBoyInvoicesFromDao = courierBoyInvoicesDAO.getById(courierBoyInvoices.getId());
+				    courierBoyInvoicesFromDao.setCourierStatus('P');
+					courierBoyInvoicesFromDao.setPaymentDate(new Date());
+					courierBoyInvoicesFromDao.setAmount(10L);
+					courierBoyInvoicesDAO.update(courierBoyInvoicesFromDao);
+			}
+			   
+		} catch (DataServiceException dataServiceException) {
+			throw new BusinessServiceException(dataServiceException.getMessage(), dataServiceException);
+		}
+		
 	}
 
 }

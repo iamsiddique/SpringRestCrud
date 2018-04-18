@@ -11,6 +11,7 @@ public interface CourierBoyInvoicesService {
 	List<CourierBoyInvoices> doGetAll() throws BusinessServiceException;
 	CourierBoyInvoices doGetById(Long id) throws BusinessServiceException;
 	void doUpdateStatus(Long courierBoyInvoicesId,Character status) throws BusinessServiceException;
+	void doMarkPaid(List<CourierBoyInvoices> courierBoyInvoicesList) throws BusinessServiceException;
 	List<CourierBoyInvoices> doGetByCourierboyid(Long courierBoyId) throws BusinessServiceException;
 	List<CourierBoyInvoices> doGetByCourierboyidStatus(Long courierBoyId, Character status) throws BusinessServiceException;
 	List<CourierBoyInvoices> doGetByUseridStatus(Long userId, Character status) throws BusinessServiceException;

@@ -404,5 +404,25 @@ public class CourierBoyController {
 		return serviceResponse;
 
 	}
+	
+	@RequestMapping(value = "/markpaid", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ServiceResponse markPaid(@RequestBody List<CourierBoyInvoices> courierBoyInvoicesList) {
+		ServiceResponse serviceResponse = null;
+		try {
+			courierBoyInvoicesService.doMarkPaid(courierBoyInvoicesList);
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", courierBoyInvoicesList);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
 
 }
