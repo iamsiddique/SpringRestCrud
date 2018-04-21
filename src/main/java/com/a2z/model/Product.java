@@ -1,6 +1,7 @@
 package com.a2z.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,12 @@ public class Product implements Serializable{
 	
 	@Column(name="code")
 	private String code;
+	
+	@Column(name="created_on")
+	private Date createdOn;
+	
+	@Column(name="updated_on")
+	private Date updatedOn;
 
 	@Column(name="photo_file_name")
 	private String photoFileName;
@@ -69,6 +76,22 @@ public class Product implements Serializable{
 
 	public void setPhotoUniqueFileName(String photoUniqueFileName) {
 		this.photoUniqueFileName = photoUniqueFileName;
+	}
+
+	public Date getCreatedOn() {
+		return createdOn;
+	}
+
+	public void setCreatedOn(Date createdOn) {
+		this.createdOn = createdOn;
+	}
+
+	public Date getUpdatedOn() {
+		return updatedOn;
+	}
+
+	public void setUpdatedOn(Date updatedOn) {
+		this.updatedOn = updatedOn;
 	}
 
 	

@@ -28,7 +28,7 @@ public class ProductDAOImpl implements ProductDAO {
 
 	@Override
 	public List<Product> getAllProducts() throws DataServiceException {
-		return this.sessionFactory.getCurrentSession().createQuery(" From Product").getResultList();
+		return this.sessionFactory.getCurrentSession().createQuery(" From Product order by updatedOn desc").getResultList();
 	}
 
 	@Override

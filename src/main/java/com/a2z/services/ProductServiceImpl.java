@@ -1,5 +1,6 @@
 package com.a2z.services;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public void doSaveProduct(Product product) throws BusinessServiceException {
 		try{
+			product.setCreatedOn(new Date());
+			product.setUpdatedOn(new Date());
 			productDAO.saveProduct(product);
 		}catch(DataServiceException dataServiceException){
 			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
@@ -62,6 +65,7 @@ public class ProductServiceImpl implements ProductService {
 				product.setPhotoFileName(productFromDao.getPhotoFileName());
 				product.setPhotoUniqueFileName(productFromDao.getPhotoUniqueFileName());
 			}
+			product.setUpdatedOn(new Date());
 			productDAO.updateProduct(product);
 		}catch(DataServiceException dataServiceException){
 			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
