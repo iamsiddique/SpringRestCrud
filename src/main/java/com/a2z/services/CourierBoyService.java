@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.a2z.model.CourierBoy;
 import com.a2z.services.exception.BusinessServiceException;
+import com.a2z.vo.CourierBoyDetailsVO;
 
 public interface CourierBoyService {
 
@@ -18,5 +19,7 @@ public interface CourierBoyService {
 	void doUpdateCourierBoy(CourierBoy courierBoy) throws BusinessServiceException;
 	
 	CourierBoy doGetCourierBoyWithUserById(Long id) throws BusinessServiceException;
+
+	List<CourierBoyDetailsVO> doGetAllCourierBoysWithCourierDetails() throws BusinessServiceException;
 
 }

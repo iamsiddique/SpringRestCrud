@@ -1,5 +1,6 @@
 package com.a2z.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.SessionFactory;
@@ -10,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.a2z.dao.exception.DataServiceException;
 import com.a2z.model.CourierBoy;
+import com.a2z.vo.CourierBoyDetailsVO;
 
 @Repository
 public class CourierBoyDAOImpl implements CourierBoyDAO {
@@ -76,5 +78,32 @@ public class CourierBoyDAOImpl implements CourierBoyDAO {
 			throw new DataServiceException("data retrieval fail", e);
 		}
 		return null;
+	}
+
+	@Override
+	@Transactional
+	public List<CourierBoyDetailsVO> getAllCourierBoysWithCourierDetails() throws DataServiceException {
+		List<CourierBoyDetailsVO> courierBoyDetailsVOList = new ArrayList<CourierBoyDetailsVO>();
+		try {		
+			List<Object[]> list = this.sessionFactory.getCurrentSession()
+					.createQuery("Select cb,(select count(*) from CourierBoyInvoices cbi where cbi.courierBoy.id = cb.id and cbi.courierStatus='A'),(select count(*) from CourierBoyInvoices cbi where cbi.courierBoy.id = cb.id and cbi.courierStatus='D'),(select count(*) from CourierBoyInvoices cbi where cbi.courierBoy.id = cb.id and cbi.courierStatus='P') From CourierBoy cb where cb.enable=1").getResultList();
+			System.out.println(list);
+			for (Object[] obj : list) {
+				CourierBoy cb = (CourierBoy)obj[0];
+				Long assigned= (Long)obj[1];
+				Long delivered= (Long)obj[2];
+				Long paid= (Long)obj[3];
+				CourierBoyDetailsVO courierBoyDetailsVO = new CourierBoyDetailsVO();
+				courierBoyDetailsVO.setCourierBoy(cb);
+				courierBoyDetailsVO.setAssigned(assigned);
+				courierBoyDetailsVO.setDelivered(delivered);
+				courierBoyDetailsVO.setPaid(paid);
+				courierBoyDetailsVOList.add(courierBoyDetailsVO);
+			}
+			
+		} catch (DataAccessException e) {
+			throw new DataServiceException("data retrieval fail", e);
+		}
+		return courierBoyDetailsVOList;
 	}
 }

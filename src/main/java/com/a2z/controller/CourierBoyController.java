@@ -32,6 +32,7 @@ import com.a2z.services.CourierBoyService;
 import com.a2z.services.exception.BusinessServiceException;
 import com.a2z.util.FileUtil;
 import com.a2z.util.StringUtil;
+import com.a2z.vo.CourierBoyDetailsVO;
 import com.a2z.vo.ServiceResponse;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -209,6 +210,26 @@ public class CourierBoyController {
 		try {
 			List<CourierBoy> courierBoysList = courierBoyService.doGetAllActiveCourierBoys();
 			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", courierBoysList);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+	
+	@RequestMapping(value = "/detail/list", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse getCourierBoysDetails() {
+		ServiceResponse serviceResponse = null;
+		try {
+			List<CourierBoyDetailsVO> courierBoyDetailsVOList = courierBoyService.doGetAllCourierBoysWithCourierDetails();
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", courierBoyDetailsVOList);
 
 		} catch (BusinessServiceException e) {
 			// e.printStackTrace();

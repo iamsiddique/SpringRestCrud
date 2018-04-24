@@ -23,6 +23,18 @@ public class ServiceAvailability implements Serializable {
 
 	@Column(name="pincode")
 	private String pincode;
+	
+	@Column(name="area")
+	private String area;
+	
+	@Column(name="city")
+	private String city;
+	
+	@Column(name="state")
+	private String state;
+	
+	@Column(name="country")
+	private String country;
 
 	public ServiceAvailability() {
 	}
@@ -41,6 +53,38 @@ public class ServiceAvailability implements Serializable {
 
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 
 

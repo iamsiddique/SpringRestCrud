@@ -14,6 +14,7 @@ import com.a2z.model.CourierBoy;
 import com.a2z.model.SeedRole;
 import com.a2z.model.User;
 import com.a2z.services.exception.BusinessServiceException;
+import com.a2z.vo.CourierBoyDetailsVO;
 
 @Service
 public class CourierBoyServiceImpl implements CourierBoyService {
@@ -108,6 +109,24 @@ public class CourierBoyServiceImpl implements CourierBoyService {
 				courierBoy.getUser().setPassword(null);
 				
 				finalCourierBoysList.add(courierBoy);
+			}
+		}catch(DataServiceException dataServiceException){
+			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
+		}
+		return finalCourierBoysList;
+	}
+	
+	@Override
+	public List<CourierBoyDetailsVO> doGetAllCourierBoysWithCourierDetails() throws BusinessServiceException {
+		// TODO Auto-generated method stub
+		List<CourierBoyDetailsVO> courierBoysList =null;
+		List<CourierBoyDetailsVO> finalCourierBoysList =new ArrayList<CourierBoyDetailsVO>();
+		try{
+			courierBoysList = courierBoyDAO.getAllCourierBoysWithCourierDetails();
+			for(CourierBoyDetailsVO courierBoyDetailsVO : courierBoysList){
+				if(courierBoyDetailsVO.getCourierBoy().getUser()!=null)
+					courierBoyDetailsVO.getCourierBoy().getUser().setPassword(null);
+				finalCourierBoysList.add(courierBoyDetailsVO);
 			}
 		}catch(DataServiceException dataServiceException){
 			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
