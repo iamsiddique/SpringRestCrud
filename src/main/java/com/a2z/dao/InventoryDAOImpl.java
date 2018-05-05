@@ -123,16 +123,17 @@ public class InventoryDAOImpl implements InventoryDAO {
 		
 		List<Inventory> inventoryList = new ArrayList<Inventory>();
 		try {
-			SQLQuery query =this.sessionFactory.getCurrentSession().createSQLQuery("select inventory.product_id,inventory.quantity,p.name,p.code from (select entry.product_id,entry.courier_center_id,entry.quantity-ifnull(dispatch.quantity,0) as quantity FROM (select courier_center_id,product_id,expiry_date,SUM(quantity) as quantity from stock_entry group by courier_center_id,product_id,expiry_date) AS entry left join (select sd.courier_center_id as courier_center_id,sdp.product_id as product_id,sdp.expiry_date as expiry_date,SUM(sdp.quantity) as quantity from stock_dispatch sd, stock_dispatch_products sdp where sd.Id = sdp.stock_dispatch_id group by courier_center_id,product_id,expiry_date) AS dispatch on entry.courier_center_id=dispatch.courier_center_id and entry.product_id = dispatch.product_id and entry.expiry_date=dispatch.expiry_date) as inventory, products p where p.Id=inventory.product_id and inventory.courier_center_id="+courierCenterId);
+			SQLQuery query =this.sessionFactory.getCurrentSession().createSQLQuery("select inventory.product_id,inventory.quantity,p.name,p.code,inventory.expiry_date from (select entry.product_id,entry.courier_center_id,entry.expiry_date,entry.quantity-ifnull(dispatch.quantity,0) as quantity FROM (select courier_center_id,product_id,expiry_date,SUM(quantity) as quantity from stock_entry group by courier_center_id,product_id,expiry_date) AS entry left join (select sd.courier_center_id as courier_center_id,sdp.product_id as product_id,sdp.expiry_date as expiry_date,SUM(sdp.quantity) as quantity from stock_dispatch sd, stock_dispatch_products sdp where sd.Id = sdp.stock_dispatch_id group by courier_center_id,product_id,expiry_date) AS dispatch on entry.courier_center_id=dispatch.courier_center_id and entry.product_id = dispatch.product_id and entry.expiry_date=dispatch.expiry_date) as inventory, products p where p.Id=inventory.product_id and inventory.courier_center_id="+courierCenterId);
 			List<Object[]> rows = query.list();
 			for(Object[] row : rows){
 				Inventory inventory = new Inventory();
-				inventory.setQuantity(Long.parseLong(row[0].toString()));
+				inventory.setQuantity(Long.parseLong(row[1].toString()));
 				Product product = new Product();
-				product.setId(Long.parseLong(row[1].toString()));
+				product.setId(Long.parseLong(row[0].toString()));
 				product.setName(row[2].toString());
 				product.setCode(row[3].toString());
 				inventory.setProduct(product);
+				inventory.setExpiryDate((Date)row[4]);
 				inventoryList.add(inventory);
 			}
 			
