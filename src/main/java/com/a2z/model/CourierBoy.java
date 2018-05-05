@@ -1,6 +1,7 @@
 package com.a2z.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -102,6 +103,15 @@ public class CourierBoy implements Serializable {
 	
 	@Column(name="bank_ifsc_code")
 	private String bankIfscCode;
+	
+	@Column(name="company_mobile_no")
+	private String companyMobileNo;
+	
+	@Column(name="mobile_no_issue_date")
+	private Date mobileNoIssueDate;
+	
+	@Column(name="mobile_no_return_date")
+	private Date mobileNoReturnDate;
 	
 	private Integer enable;
 	
@@ -336,6 +346,30 @@ public class CourierBoy implements Serializable {
 
 	public void setVehicleOwner(String vehicleOwner) {
 		this.vehicleOwner = vehicleOwner;
+	}
+
+	public String getCompanyMobileNo() {
+		return companyMobileNo;
+	}
+
+	public void setCompanyMobileNo(String companyMobileNo) {
+		this.companyMobileNo = companyMobileNo;
+	}
+
+	public Date getMobileNoIssueDate() {
+		return mobileNoIssueDate;
+	}
+
+	public void setMobileNoIssueDate(Date mobileNoIssueDate) {
+		this.mobileNoIssueDate = mobileNoIssueDate;
+	}
+
+	public Date getMobileNoReturnDate() {
+		return mobileNoReturnDate;
+	}
+
+	public void setMobileNoReturnDate(Date mobileNoReturnDate) {
+		this.mobileNoReturnDate = mobileNoReturnDate;
 	} 
 
 	
