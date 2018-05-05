@@ -108,5 +108,27 @@ public class StockEntryController {
 		return serviceResponse;
 	}
 	
+	@RequestMapping(value = "/update", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ServiceResponse updateStockEntry(@RequestBody StockEntry stockEntry) {
+		ServiceResponse serviceResponse = null;
+		try {
+			stockEntryService.doUpdateStockEntry(stockEntry);
+
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", stockEntry);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+
+	
 	
 }

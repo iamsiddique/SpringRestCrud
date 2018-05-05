@@ -24,7 +24,7 @@ public class InventoryServiceImpl implements InventoryService {
 	public List<Inventory> doGetInventoryByCourierCenter(Long courierCenterId) throws BusinessServiceException {
 		List<Inventory> inventoryList = null;
 		try {
-			inventoryList = inventoryDAO.getInventoryByCouriercenterid(courierCenterId);
+			inventoryList = inventoryDAO.getInventoryByCouriercenteridSql(courierCenterId);
 		} catch (DataServiceException dataServiceException) {
 			throw new BusinessServiceException(dataServiceException.getMessage(), dataServiceException);
 		}
