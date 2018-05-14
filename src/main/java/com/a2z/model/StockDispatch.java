@@ -31,6 +31,12 @@ public class StockDispatch implements Serializable{
 	@Column(name="payment_mode")
 	private String paymentMode;
 	
+	@Column(name="mobile_no")
+	private String mobileNo;
+	
+	@Column(name="amount")
+	private Long amount;
+	
 	@ManyToOne
 	@JoinColumn(name="courier_center_id")
 	private CourierCenter courierCenter;
@@ -76,11 +82,23 @@ public class StockDispatch implements Serializable{
 		this.paymentMode = paymentMode;
 	}
 
+	public Long getAmount() {
+		return amount;
+	}
 
+	public void setAmount(Long amount) {
+		this.amount = amount;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
+	}
 	
 	
-
-
 		
 
 }

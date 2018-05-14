@@ -11,6 +11,7 @@ import com.a2z.dao.StockDispatchDAO;
 import com.a2z.dao.StockDispatchProductDAO;
 import com.a2z.dao.exception.DataServiceException;
 import com.a2z.model.Inventory;
+import com.a2z.model.PhoneAddress;
 import com.a2z.model.StockDispatch;
 import com.a2z.model.StockDispatchProduct;
 import com.a2z.services.exception.BusinessServiceException;
@@ -27,6 +28,9 @@ public class StockDispatchServiceImpl implements StockDispatchService {
 	
 	@Autowired
 	InventoryDAO inventoryDAO;
+	
+	@Autowired
+	PhoneAddressService phoneAddressService;
 
 	@Override
 	@Transactional
@@ -47,6 +51,10 @@ public class StockDispatchServiceImpl implements StockDispatchService {
 			    	inventoryDAO.updateInventory(inventory);
 			    }
 			}
+			PhoneAddress phoneAddress = new PhoneAddress();
+			phoneAddress.setPhone(stockDispatchVO.getInvoiceDetails().getMobileNo());
+			phoneAddress.setAddress(stockDispatchVO.getInvoiceDetails().getToAddress());
+			phoneAddressService.doSavePhoneAddress(phoneAddress);
 			System.out.println(stockDispatchVO.getInvoiceDetails());
 			
 		}catch(DataServiceException dataServiceException){
