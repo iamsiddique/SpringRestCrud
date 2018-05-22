@@ -17,12 +17,10 @@ public class StockEntryDAOImpl implements StockEntryDAO {
 	SessionFactory sessionFactory;
 
 	@Override
-	public void saveStockEntry(StockEntry stockEntry) throws DataServiceException {
-		try {
+	public void saveStockEntry(StockEntry stockEntry) throws Exception {
+		
 			this.sessionFactory.getCurrentSession().saveOrUpdate(stockEntry);
-		} catch (DataAccessException dataAccessException) {
-			throw new DataServiceException("data insert fail", dataAccessException);
-		}
+		
 		
 	}
 

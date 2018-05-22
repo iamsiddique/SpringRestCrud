@@ -23,8 +23,8 @@ public class StockEntryServiceImpl implements StockEntryService {
 
 	@Override
 	@Transactional
-	public void doSaveStockEntry(StockEntry stockEntry) throws BusinessServiceException {
-		try{
+	public void doSaveStockEntry(StockEntry stockEntry) throws Exception {
+		
 			stockEntryDAO.saveStockEntry(stockEntry);
 		    Inventory inventory = inventoryDAO.getInventoryByProductidCouriercenteridExpirydate(stockEntry.getProduct().getId(),stockEntry.getCourierCenter().getId(), stockEntry.getExpiryDate());
 		    if(inventory==null){
@@ -39,9 +39,7 @@ public class StockEntryServiceImpl implements StockEntryService {
 		    	inventory.setQuantity(updatedQuatity);
 		    	inventoryDAO.updateInventory(inventory);
 		    }
-		}catch(DataServiceException dataServiceException){
-			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
-		}
+		
 		
 	}
 

@@ -35,11 +35,12 @@ public class StockEntryController {
 
 			serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", stockEntry);
 
-		} catch (BusinessServiceException e) {
-			// e.printStackTrace();
-			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
-
 		} catch (Exception e) {
+			if (e.getCause().getMessage().contains("unique_stock")) {
+				serviceResponse = ServiceResponseUtils.dataResponse("2", "duplicate stock entry", null);
+			} else {
+				serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+			}
 			e.printStackTrace();
 		} catch (Throwable e) {
 			e.printStackTrace();
