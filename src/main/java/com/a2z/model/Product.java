@@ -37,6 +37,15 @@ public class Product implements Serializable{
 
 	@Column(name="photo_unique_file_name")
 	private String photoUniqueFileName;
+	
+	@Column(name="cost")
+	private Long cost;
+	
+	@Column(name="sgst")
+	private Integer sgst;
+	
+	@Column(name="cgst")
+	private Integer cgst;
 
 	public Long getId() {
 		return id;
@@ -94,8 +103,28 @@ public class Product implements Serializable{
 		this.updatedOn = updatedOn;
 	}
 
-	
-	
-	
+	public Long getCost() {
+		return cost;
+	}
+
+	public void setCost(Long cost) {
+		this.cost = cost;
+	}
+
+	public Integer getSgst() {
+		return sgst;
+	}
+
+	public void setSgst(Integer sgst) {
+		this.sgst = sgst;
+	}
+
+	public Integer getCgst() {
+		return cgst;
+	}
+
+	public void setCgst(Integer cgst) {
+		this.cgst = cgst;
+	}
 
 }
