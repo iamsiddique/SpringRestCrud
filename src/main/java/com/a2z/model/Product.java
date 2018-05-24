@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Formula;
+
 @Entity
 @Table(name="products")
 public class Product implements Serializable{
@@ -46,6 +48,9 @@ public class Product implements Serializable{
 	
 	@Column(name="cgst")
 	private Integer cgst;
+	
+	@Formula(value = "(cost+(sgst*cost/100)+(cgst*cost/100))")
+	private Long totalCost;
 
 	public Long getId() {
 		return id;
@@ -126,5 +131,15 @@ public class Product implements Serializable{
 	public void setCgst(Integer cgst) {
 		this.cgst = cgst;
 	}
+
+	public Long getTotalCost() {
+		return totalCost;
+	}
+
+	public void setTotalCost(Long totalCost) {
+		this.totalCost = totalCost;
+	}
+	
+	
 
 }
