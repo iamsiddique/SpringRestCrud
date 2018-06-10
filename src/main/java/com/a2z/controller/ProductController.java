@@ -76,7 +76,6 @@ public class ProductController {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println(e.getCause().getMessage());
 			if (e.getCause().getMessage().contains("unique_product_code")) {
 				serviceResponse = ServiceResponseUtils.dataResponse("0", "duplicate product", null);
 			} else {
@@ -213,6 +212,27 @@ public class ProductController {
 		inputStream.close();
 		outStream.close();
 
+	}
+
+	
+	@RequestMapping(value = "/list/couriercenter/{id}", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse getProductsByCourierCenter(@PathVariable(value = "id") Long id) {
+		ServiceResponse serviceResponse = null;
+		try {
+			List<Product> productList = productService.doGetProductsByCourierCenter(id);
+
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", productList);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
 	}
 
 
