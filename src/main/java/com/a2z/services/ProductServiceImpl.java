@@ -1,5 +1,6 @@
 package com.a2z.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -7,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.a2z.dao.InventoryDAO;
 import com.a2z.dao.ProductDAO;
 import com.a2z.dao.exception.DataServiceException;
+import com.a2z.model.Inventory;
 import com.a2z.model.Product;
 import com.a2z.services.exception.BusinessServiceException;
 
@@ -16,6 +19,10 @@ import com.a2z.services.exception.BusinessServiceException;
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	ProductDAO productDAO;
+	
+
+	@Autowired
+	InventoryDAO inventoryDAO;
 
 	@Override
 	@Transactional
@@ -70,10 +77,23 @@ public class ProductServiceImpl implements ProductService {
 		}catch(DataServiceException dataServiceException){
 			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
 		}
+	}
+
+	@Override
+	@Transactional
+	public List<Product> doGetProductsByCourierCenter(Long courierCenterId) throws BusinessServiceException {
+		List<Inventory> inventoryList = null;
+		List<Product> productList = new ArrayList<Product>();
+		try {
+			inventoryList = inventoryDAO.getInventoryByCouriercenteridSql(courierCenterId);
+			for(Inventory inventory : inventoryList){
+				productList.add(inventory.getProduct());
+			}
+		} catch (DataServiceException dataServiceException) {
+			throw new BusinessServiceException(dataServiceException.getMessage(), dataServiceException);
+		}
+		return productList;
 	} 
-	
-		
-	
 }
 
 
