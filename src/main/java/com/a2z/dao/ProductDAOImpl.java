@@ -2,6 +2,8 @@ package com.a2z.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -45,6 +47,25 @@ public class ProductDAOImpl implements ProductDAO {
 			throw new DataServiceException("data retrieval fail", e);
 		}
 		return null;
+
+	}
+	
+	@Override
+	public List<Product> getProductInIds(List<Long> ids) throws DataServiceException {
+		List<Product> list = null;
+		try {
+			String jpql = "from Product p where p.id in (:ids)";
+			Query q = this.sessionFactory.getCurrentSession().createQuery(jpql);
+			q.setParameter("ids", ids);
+			list = q.getResultList();
+			/*List<Product> list = this.sessionFactory.getCurrentSession()
+					.createQuery(" From Product p  where p.id=" + id).getResultList();
+			 */
+			
+		} catch (DataAccessException e) {
+			throw new DataServiceException("data retrieval fail", e);
+		}
+		return list;
 
 	}
 

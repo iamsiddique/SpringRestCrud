@@ -10,4 +10,5 @@ public interface ProductDAO {
 	List<Product> getAllProducts() throws DataServiceException;
 	Product getProductById(Long id) throws DataServiceException;
 	void updateProduct(Product product) throws DataServiceException;
+	List<Product> getProductInIds(List<Long> ids) throws DataServiceException;
 }

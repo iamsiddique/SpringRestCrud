@@ -83,12 +83,14 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public List<Product> doGetProductsByCourierCenter(Long courierCenterId) throws BusinessServiceException {
 		List<Inventory> inventoryList = null;
-		List<Product> productList = new ArrayList<Product>();
+		List<Long> productIds = new ArrayList<Long>();
+		List<Product> productList = null;
 		try {
 			inventoryList = inventoryDAO.getInventoryByCouriercenteridSql(courierCenterId);
 			for(Inventory inventory : inventoryList){
-				productList.add(inventory.getProduct());
+				productIds.add(inventory.getProduct().getId());
 			}
+			productList = productDAO.getProductInIds(productIds);
 		} catch (DataServiceException dataServiceException) {
 			throw new BusinessServiceException(dataServiceException.getMessage(), dataServiceException);
 		}
