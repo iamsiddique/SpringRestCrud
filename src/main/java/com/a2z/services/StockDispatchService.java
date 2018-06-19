@@ -13,4 +13,6 @@ public interface StockDispatchService {
 	
 	List<StockDispatch> doGetAllStockDispatch() throws BusinessServiceException;
 	
+	List<StockDispatch> getStockDispatchesByCourierCenter(Long id) throws BusinessServiceException;
+	
 }

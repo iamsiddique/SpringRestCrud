@@ -10,4 +10,5 @@ public interface StockDispatchDAO {
 	List<StockDispatch> getAllStockDispatch() throws DataServiceException;
 	StockDispatch getStockDispatchById(Long id) throws DataServiceException;
 	void updateStockDispatch(StockDispatch stockDispatch) throws DataServiceException;
+	List<StockDispatch> getStockDispatchesByCourierCenter(Long id) throws DataServiceException;
 }

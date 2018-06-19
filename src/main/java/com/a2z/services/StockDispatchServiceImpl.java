@@ -97,4 +97,16 @@ public class StockDispatchServiceImpl implements StockDispatchService {
 		return stockDispatchList;
 	}
 
+	@Override
+	@Transactional
+	public List<StockDispatch> getStockDispatchesByCourierCenter(Long id) throws BusinessServiceException {
+		List<StockDispatch> stockDispatchList = null;
+		try{
+			stockDispatchList = stockDispatchDAO.getStockDispatchesByCourierCenter(id);
+		}catch(DataServiceException dataServiceException){
+			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
+		}
+		return stockDispatchList;
+	}
+
 }

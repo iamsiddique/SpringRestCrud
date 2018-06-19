@@ -30,6 +30,11 @@ public class StockDispatchDAOImpl implements StockDispatchDAO {
 	public List<StockDispatch> getAllStockDispatch() throws DataServiceException {
 		return this.sessionFactory.getCurrentSession().createQuery(" From StockDispatch").getResultList();
 	}
+	
+	@Override
+	public List<StockDispatch> getStockDispatchesByCourierCenter(Long id) throws DataServiceException {
+		return this.sessionFactory.getCurrentSession().createQuery(" From StockDispatch sd where sd.courierCenter.id="+id).getResultList();
+	}
 
 	@Override
 	public StockDispatch getStockDispatchById(Long id) throws DataServiceException {

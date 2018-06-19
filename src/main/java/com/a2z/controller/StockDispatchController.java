@@ -72,6 +72,27 @@ public class StockDispatchController {
 
 	}
 	
+	@RequestMapping(value = "/list/couriercenter/{id}", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse getStockDispatchListByCCId(@PathVariable(value = "id") Long id) {
+		ServiceResponse serviceResponse = null;
+		try {
+			
+			List<StockDispatch> stockDispatchList=stockDispatchService.getStockDispatchesByCourierCenter(id);	
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", stockDispatchList);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+	
 	
 	@RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
 	public @ResponseBody ServiceResponse deactivateCourierBoy(@PathVariable(value = "id") Long id) {
