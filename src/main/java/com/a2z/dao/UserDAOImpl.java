@@ -2,6 +2,7 @@ package com.a2z.dao;
 
 import java.util.List;
 
+import org.hibernate.query.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -47,6 +48,21 @@ public class UserDAOImpl implements UserDAO {
 	public List<User> getAllUsers() throws DataServiceException {
 		// TODO Auto-generated method stub
 		return this.sessionFactory.getCurrentSession().createQuery(" From User").getResultList();
+	}
+
+	@Override
+	public int changePassword(String userName,String password) throws DataServiceException {
+		// TODO Auto-generated method stub
+		
+		String hql = "UPDATE User set password = :password "  + 
+	             "WHERE username = :userName";
+		
+		Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+		query.setParameter("password", password);
+		query.setParameter("userName", userName);
+		int result = query.executeUpdate();
+		
+		return result;
 	}
 
 }

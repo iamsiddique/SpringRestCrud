@@ -10,6 +10,7 @@ import com.a2z.dao.UserDAO;
 import com.a2z.dao.exception.DataServiceException;
 import com.a2z.model.User;
 import com.a2z.services.exception.BusinessServiceException;
+import com.a2z.vo.ChangePasswordVO;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,6 +53,25 @@ public class UserServiceImpl implements UserService {
 			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
 		}
 		return userList;
+	}
+
+	@Override
+	@Transactional
+	public int doChangePassword(ChangePasswordVO changePasswordVO) throws BusinessServiceException {
+		User user =null;
+		int result = 0;
+		try{
+			user = userDAO.getUserByUsernamePassword(changePasswordVO.getUserName(), changePasswordVO.getExistingPassword());
+			if(user == null){
+				result =  -1;
+			}else{
+				result = userDAO.changePassword(changePasswordVO.getUserName(), changePasswordVO.getNewPassword());
+			}
+		}catch(DataServiceException dataServiceException){
+			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
+		}
+		return result;
+		
 	}
 	
 	

@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a2z.controller.util.ServiceResponseUtils;
+import com.a2z.model.ServiceAvailability;
 import com.a2z.model.User;
 import com.a2z.services.UserService;
 import com.a2z.services.exception.BusinessServiceException;
+import com.a2z.vo.ChangePasswordVO;
 import com.a2z.vo.ServiceResponse;
 
 @Controller
@@ -85,6 +87,34 @@ public class UserController {
 		return serviceResponse;
 
 	}
+	
+	@RequestMapping(value = "/changePassword", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ServiceResponse changePassword(@RequestBody ChangePasswordVO changePasswordVO) {
+		ServiceResponse serviceResponse = null;
+		try {
+			//serviceAvailabilityService.doSaveServiceAvailability(serviceAvailability);
+			int result = userService.doChangePassword(changePasswordVO);
+			if(result==1){
+				serviceResponse = ServiceResponseUtils.dataResponse("1", "data saved successfully", changePasswordVO);	
+			}else{
+				serviceResponse = ServiceResponseUtils.dataResponse("2", "incorrect existing password", changePasswordVO);
+			}
+			
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.getCause().getMessage(), null);
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+
 	
 
 
