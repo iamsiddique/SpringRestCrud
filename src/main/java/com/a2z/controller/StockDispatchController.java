@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.a2z.controller.util.ServiceResponseUtils;
 import com.a2z.model.StockDispatch;
+import com.a2z.model.StockDispatchProduct;
 import com.a2z.services.StockDispatchService;
 import com.a2z.services.exception.BusinessServiceException;
 import com.a2z.vo.ServiceResponse;
@@ -79,6 +80,27 @@ public class StockDispatchController {
 			
 			List<StockDispatch> stockDispatchList=stockDispatchService.getStockDispatchesByCourierCenter(id);	
 			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", stockDispatchList);
+
+		} catch (BusinessServiceException e) {
+			// e.printStackTrace();
+			serviceResponse = ServiceResponseUtils.dataResponse("0", e.toString(), null);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
+		return serviceResponse;
+
+	}
+	
+	@RequestMapping(value = "/list/couriercenter/product/{id}", method = RequestMethod.GET)
+	public @ResponseBody ServiceResponse getStockDispatchProductListByCCId(@PathVariable(value = "id") Long id) {
+		ServiceResponse serviceResponse = null;
+		try {
+			
+			List<StockDispatchProduct> stockDispatchProductList=stockDispatchService.getStockDispatcheProductsByStockDispatch(id);	
+			serviceResponse = ServiceResponseUtils.dataResponse("1", "data retrived successfully", stockDispatchProductList);
 
 		} catch (BusinessServiceException e) {
 			// e.printStackTrace();

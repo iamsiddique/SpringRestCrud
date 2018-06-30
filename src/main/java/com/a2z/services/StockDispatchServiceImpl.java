@@ -109,4 +109,17 @@ public class StockDispatchServiceImpl implements StockDispatchService {
 		return stockDispatchList;
 	}
 
+	@Override
+	@Transactional
+	public List<StockDispatchProduct> getStockDispatcheProductsByStockDispatch(Long id)
+			throws BusinessServiceException {
+		List<StockDispatchProduct> stockDispatchList = null;
+		try{
+			stockDispatchList = stockDispatchProductDAO.getStockDispatchProductsByStockDispatchId(id);
+		}catch(DataServiceException dataServiceException){
+			throw new BusinessServiceException(dataServiceException.getMessage(),dataServiceException);
+		}
+		return stockDispatchList;
+	}
+
 }

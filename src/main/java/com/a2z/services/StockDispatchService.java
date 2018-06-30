@@ -3,6 +3,7 @@ package com.a2z.services;
 import java.util.List;
 
 import com.a2z.model.StockDispatch;
+import com.a2z.model.StockDispatchProduct;
 import com.a2z.services.exception.BusinessServiceException;
 import com.a2z.vo.StockDispatchVO;
 
@@ -14,5 +15,7 @@ public interface StockDispatchService {
 	List<StockDispatch> doGetAllStockDispatch() throws BusinessServiceException;
 	
 	List<StockDispatch> getStockDispatchesByCourierCenter(Long id) throws BusinessServiceException;
+	
+	List<StockDispatchProduct> getStockDispatcheProductsByStockDispatch(Long id) throws BusinessServiceException;
 	
 }
