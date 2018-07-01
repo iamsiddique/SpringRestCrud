@@ -37,6 +37,12 @@ public class StockDispatch implements Serializable{
 	@Column(name="amount")
 	private Long amount;
 	
+	@Column(name="dispatch_type")
+	private Character dispatchType;
+	
+	@Column(name="dispatch_weight")
+	private Integer dispatchWeight;
+	
 	@ManyToOne
 	@JoinColumn(name="courier_center_id")
 	private CourierCenter courierCenter;
@@ -97,6 +103,24 @@ public class StockDispatch implements Serializable{
 	public void setMobileNo(String mobileNo) {
 		this.mobileNo = mobileNo;
 	}
+
+	public Character getDispatchType() {
+		return dispatchType;
+	}
+
+	public void setDispatchType(Character dispatchType) {
+		this.dispatchType = dispatchType;
+	}
+
+	public Integer getDispatchWeight() {
+		return dispatchWeight;
+	}
+
+	public void setDispatchWeight(Integer dispatchWeight) {
+		this.dispatchWeight = dispatchWeight;
+	}
+
+
 	
 	
 		
