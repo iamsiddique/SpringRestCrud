@@ -41,16 +41,16 @@ public class Product implements Serializable{
 	private String photoUniqueFileName;
 	
 	@Column(name="cost")
-	private Long cost;
+	private Float cost;
 	
 	@Column(name="sgst")
-	private Integer sgst;
+	private Float sgst;
 	
 	@Column(name="cgst")
-	private Integer cgst;
+	private Float cgst;
 	
 	@Formula(value = "(cost+(sgst*cost/100)+(cgst*cost/100))")
-	private Long totalCost;
+	private Float totalCost;
 
 	public Long getId() {
 		return id;
@@ -108,37 +108,38 @@ public class Product implements Serializable{
 		this.updatedOn = updatedOn;
 	}
 
-	public Long getCost() {
+	public Float getCost() {
 		return cost;
 	}
 
-	public void setCost(Long cost) {
+	public void setCost(Float cost) {
 		this.cost = cost;
 	}
 
-	public Integer getSgst() {
-		return sgst;
-	}
-
-	public void setSgst(Integer sgst) {
-		this.sgst = sgst;
-	}
-
-	public Integer getCgst() {
-		return cgst;
-	}
-
-	public void setCgst(Integer cgst) {
-		this.cgst = cgst;
-	}
-
-	public Long getTotalCost() {
+	public Float getTotalCost() {
 		return totalCost;
 	}
 
-	public void setTotalCost(Long totalCost) {
+	public void setTotalCost(Float totalCost) {
 		this.totalCost = totalCost;
 	}
+
+	public Float getSgst() {
+		return sgst;
+	}
+
+	public void setSgst(Float sgst) {
+		this.sgst = sgst;
+	}
+
+	public Float getCgst() {
+		return cgst;
+	}
+
+	public void setCgst(Float cgst) {
+		this.cgst = cgst;
+	}
+	
 	
 	
 
