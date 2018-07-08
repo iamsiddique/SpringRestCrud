@@ -49,6 +49,12 @@ public class Product implements Serializable{
 	@Column(name="cgst")
 	private Float cgst;
 	
+	@Column(name="product_weight")
+	private Float productWeight;
+	
+	@Column(name="product_type")
+	private Character productType;
+	
 	@Formula(value = "(cost+(sgst*cost/100)+(cgst*cost/100))")
 	private Float totalCost;
 
@@ -139,6 +145,24 @@ public class Product implements Serializable{
 	public void setCgst(Float cgst) {
 		this.cgst = cgst;
 	}
+
+	public Float getProductWeight() {
+		return productWeight;
+	}
+
+	public void setProductWeight(Float productWeight) {
+		this.productWeight = productWeight;
+	}
+
+	public Character getProductType() {
+		return productType;
+	}
+
+	public void setProductType(Character productType) {
+		this.productType = productType;
+	}
+
+
 	
 	
 	
